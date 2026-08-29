@@ -14,8 +14,8 @@ Quit NX, run the deployer, restart NX. Command search, the spacebar radial menu,
 </p>
 
 <p align="center">
-  <a href="https://github.com/LiarCN001/NXWebUI/blob/main/LICENSE"><img src="https://shieldcn.dev/github/license/LiarCN001/NXWebUI.svg?variant=secondary&size=sm&theme=orange" alt="license" /></a>
-  <a href="https://github.com/LiarCN001/NXWebUI/stargazers"><img src="https://shieldcn.dev/github/stars/LiarCN001/NXWebUI.svg?variant=secondary&size=sm&theme=orange" alt="GitHub stars" /></a>
+  <a href="https://github.com/Jersyi2002/NXWebUI/blob/main/LICENSE"><img src="https://shieldcn.dev/github/license/Jersyi2002/NXWebUI.svg?variant=secondary&size=sm&theme=orange" alt="license" /></a>
+  <a href="https://github.com/Jersyi2002/NXWebUI/stargazers"><img src="https://shieldcn.dev/github/stars/Jersyi2002/NXWebUI.svg?variant=secondary&size=sm&theme=orange" alt="GitHub stars" /></a>
   <a href="https://www.plm.automation.siemens.com/"><img src="https://shieldcn.dev/badge/NX-2506-D97757.svg?variant=secondary&size=sm&theme=orange" alt="NX 2506" /></a>
 </p>
 
@@ -24,7 +24,7 @@ Quit NX, run the deployer, restart NX. Command search, the spacebar radial menu,
 ## Install
 
 ```powershell
-git clone https://github.com/LiarCN001/NXWebUI.git
+git clone https://github.com/Jersyi2002/NXWebUI.git
 cd NXWebUI
 dotnet build NxWebUIDeployer.slnx -c Release
 ```

@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>NxWebUIDeployer</RootNamespace>
+    <AssemblyName>NxWebUIDeployer</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon />
+    <OutputPath>$(MSBuildThisFileDirectory)..\..\dist\</OutputPath>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <GenerateRuntimeConfigurationFiles>false</GenerateRuntimeConfigurationFiles>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <NxWebUiPayload Condition="'$(NxWebUiPayload)' == ''">$(MSBuildThisFileDirectory)..\..\..\AgentManager\NxWebUITool\deploy</NxWebUiPayload>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NxWebUIDeployer.Core\NxWebUIDeployer.Core.csproj" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\webui\**\*.*" Link="webui\%(RecursiveDir)%(Filename)%(Extension)">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="CopyWebUiAndPayload" AfterTargets="Build">
+    <MakeDir Directories="$(OutputPath)webui;$(OutputPath)payload" />
+    <ItemGroup>
+      <_WebUi Include="$(MSBuildThisFileDirectory)..\..\webui\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_WebUi)" DestinationFolder="$(OutputPath)webui\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(OutputPath)runtimes\win-x64\native\WebView2Loader.dll"
+          DestinationFolder="$(OutputPath)"
+          Condition="Exists('$(OutputPath)runtimes\win-x64\native\WebView2Loader.dll')" />
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)..\..\scripts\sync-payload.ps1&quot; -Source &quot;$(NxWebUiPayload)&quot; -Dest &quot;$(OutputPath)payload&quot;"
+          Condition="Exists('$(NxWebUiPayload)\startup\NxWebUI.men')"
+          ContinueOnError="true" />
+    <ItemGroup>
+      <_Junk Include="$(OutputPath)Microsoft.Web.WebView2.Wpf.dll;
+                       $(OutputPath)Microsoft.Web.WebView2.Wpf.xml;
+                       $(OutputPath)Microsoft.Web.WebView2.Core.xml;
+                       $(OutputPath)Microsoft.Web.WebView2.WinForms.xml;
+                       $(OutputPath)*.runtimeconfig.json;
+                       $(OutputPath)*.deps.json" />
+    </ItemGroup>
+    <Delete Files="@(_Junk)" TreatErrorsAsWarnings="true" />
+    <RemoveDir Directories="$(OutputPath)runtimes" />
+  </Target>
+</Project>

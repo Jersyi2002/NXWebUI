@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NX WebUI 部署器</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg-orbs" aria-hidden="true">
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+</div>
+
+<div class="app">
+  <header class="app-header anim-in" style="--i:0">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M16 3l10 5.8v11.6L16 26.2 6 20.4V8.8L16 3z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+          <circle cx="16" cy="14.8" r="3.4" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>NX WebUI 部署器</h1>
+        <p>独立安装 Siemens NX 2506 WebUI 插件</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span class="status-pill" id="statusPill" data-state="pending">
+        <span class="dot"></span><span id="statusText">检测中…</span>
+      </span>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="切换主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.4 14.2A8.5 8.5 0 1 1 9.8 3.6a7 7 0 1 0 10.6 10.6z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <p class="hint anim-in" style="--i:1">拷到 %LOCALAPPDATA%\NxWebUITool\deploy，写入 custom_dirs.dat，设置用户环境变量 UGII_CUSTOM_DIRECTORY_FILE，并尽量修补 NX 官方 custom_dirs。不依赖 Agent Manager。</p>
+
+    <div class="banner banner-warn anim-in" id="nxBanner" hidden style="--i:2">Siemens NX（ugraf.exe）正在运行。请完全退出后再安装或卸载。</div>
+    <div class="banner banner-warn anim-in" id="errorBanner" hidden style="--i:2"></div>
+    <div class="banner banner-note anim-in" id="warnBanner" hidden style="--i:2"></div>
+
+    <section class="card anim-in" style="--i:3">
+      <div class="card-head">
+        <div>
+          <h2>NX WebUI 插件</h2>
+          <p class="card-sub">命令搜索 · 空格环形菜单 · 初始化项目</p>
+        </div>
+        <span class="badge" id="stateBadge">—</span>
+      </div>
+
+      <div class="info-list" id="infoList">
+        <div class="info-row" style="--i:0"><span class="info-label">安装目录</span><span class="info-value" id="installDir">—</span></div>
+        <div class="info-row" style="--i:1"><span class="info-label">插件载荷</span><span class="info-value" id="sourceDir">—</span></div>
+        <div class="info-row" style="--i:2"><span class="info-label">环境变量文件</span><span class="info-value" id="envFile">—</span></div>
+        <div class="info-row" style="--i:3"><span class="info-label">文件</span><span class="info-value" id="files">—</span></div>
+        <div class="info-row" style="--i:4"><span class="info-label">检测到的 NX</span><span class="info-value" id="nx">检测中…</span></div>
+        <div class="info-row" style="--i:5"><span class="info-label">保留的第三方目录</span><span class="info-value" id="preserved">—</span></div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="deployBtn" type="button" disabled>
+          <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M8 11l4 4 4-4"/><path d="M5 21h14"/></svg>
+          <span id="deployLabel">安装</span>
+        </button>
+        <button class="btn btn-ghost" id="refreshBtn" type="button">
+          <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+          <span>刷新</span>
+        </button>
+        <button class="btn btn-ghost" id="openBtn" type="button">打开安装目录</button>
+        <button class="btn btn-danger" id="uninstallBtn" type="button" disabled>卸载</button>
+      </div>
+      <p class="confirm" id="confirmUninstall" hidden>
+        将删除 LocalAppData 中的插件并恢复环境变量。第三方目录（QuickCAM / NXPL001）会保留。
+        <button class="btn btn-danger" id="confirmYes" type="button">确认卸载</button>
+        <button class="btn btn-ghost" id="confirmNo" type="button">取消</button>
+      </p>
+    </section>
+
+    <section class="card anim-in" id="logCard" hidden style="--i:4">
+      <div class="card-head">
+        <div>
+          <h2>日志</h2>
+          <p class="card-sub">最近一次安装 / 卸载输出</p>
+        </div>
+      </div>
+      <pre class="log" id="log"></pre>
+    </section>
+  </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

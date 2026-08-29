@@ -1,0 +1,11 @@
+bin/
+obj/
+dist/
+dist-test/
+payload/
+*.user
+*.suo
+.vs/
+*.pdb
+*.exe
+!webui/**

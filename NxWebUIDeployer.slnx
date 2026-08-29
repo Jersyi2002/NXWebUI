@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="src/NxWebUIDeployer.Core/NxWebUIDeployer.Core.csproj" />
+  <Project Path="src/NxWebUIDeployer/NxWebUIDeployer.csproj" />
+  <Project Path="tests/NxWebUIDeployer.Tests.csproj" />
+</Solution>

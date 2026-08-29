@@ -1,25 +1,12 @@
-<div align="center">
-
 # NX WebUI
 
-**One-click install for the Siemens NX 2506 WebUI plugin**
+[![License](https://img.shields.io/github/license/Jersyi2002/NXWebUI)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/Jersyi2002/NXWebUI)](https://github.com/Jersyi2002/NXWebUI/stargazers)
+[![NX](https://img.shields.io/badge/NX-2506-blue)](https://www.plm.automation.siemens.com/)
+
+One-click install for the Siemens NX 2506 WebUI plugin.
 
 Quit NX, run the deployer, restart NX. Command search, the spacebar radial menu, and project init load without Agent Manager.
-
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/header/gradient.svg?title=NX+WebUI&subtitle=Siemens+NX+2506+plugin+%2B+deployer&theme=orange&mode=dark&align=center&font=space-grotesk" />
-    <img alt="NX WebUI" src="https://shieldcn.dev/header/gradient.svg?title=NX+WebUI&subtitle=Siemens+NX+2506+plugin+%2B+deployer&theme=orange&mode=light&align=center&font=space-grotesk" />
-  </picture>
-</p>
-
-<p align="center">
-  <a href="https://github.com/Jersyi2002/NXWebUI/blob/main/LICENSE"><img src="https://shieldcn.dev/github/license/Jersyi2002/NXWebUI.svg?variant=secondary&size=sm&theme=orange" alt="license" /></a>
-  <a href="https://github.com/Jersyi2002/NXWebUI/stargazers"><img src="https://shieldcn.dev/github/stars/Jersyi2002/NXWebUI.svg?variant=secondary&size=sm&theme=orange" alt="GitHub stars" /></a>
-  <a href="https://www.plm.automation.siemens.com/"><img src="https://shieldcn.dev/badge/NX-2506-D97757.svg?variant=secondary&size=sm&theme=orange" alt="NX 2506" /></a>
-</p>
-
-</div>
 
 ## Demo
 
@@ -86,6 +73,10 @@ Click 安装. The deployer copies the plugin to `%LOCALAPPDATA%\NxWebUITool\depl
 - **Siemens NX 2506:** plugin binaries, menus, and NXOpen references target that release.
 - **Plugin payload:** after the two `dotnet build` commands, `dist\payload` sits beside the exe. You can also set `NXWEBUI_PAYLOAD` to any folder that already contains `startup\` and `application\`.
 - After any plugin DLL or webui change, fully quit NX, then click 修复 / 更新.
+
+## Notes
+
+The spacebar menu has two looks: **classic** and **RadialZ**. The RadialZ style (dark disc, coral accent, nested child slots) is inspired by [RadialZ](https://www.radialz.app/), a radial brush menu for ZBrush. NX WebUI is an independent NX plugin and is not affiliated with RadialZ.
 
 ## License
 

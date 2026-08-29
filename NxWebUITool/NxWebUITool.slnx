@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/NxCommandSearch/">
+    <Project Path="NxCommandSearch/NxCommandSearch.UI.csproj" />
+  </Folder>
+  <Project Path="NxCommandSearch/NxCommandSearch.csproj" />
+</Solution>

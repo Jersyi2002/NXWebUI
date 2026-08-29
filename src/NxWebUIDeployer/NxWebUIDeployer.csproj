@@ -12,7 +12,7 @@
     <GenerateRuntimeConfigurationFiles>false</GenerateRuntimeConfigurationFiles>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
-    <NxWebUiPayload Condition="'$(NxWebUiPayload)' == ''">$(MSBuildThisFileDirectory)..\..\..\AgentManager\NxWebUITool\deploy</NxWebUiPayload>
+    <NxWebUiPayload Condition="'$(NxWebUiPayload)' == ''">$(MSBuildThisFileDirectory)..\..\NxWebUITool\deploy</NxWebUiPayload>
   </PropertyGroup>
 
   <ItemGroup>

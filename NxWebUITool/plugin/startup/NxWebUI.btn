@@ -1,0 +1,40 @@
+! NX WebUI 命令搜索按钮定义
+VERSION 120
+CREATE BUTTON_DEFINITIONS
+
+BUTTON NXWEBUI_PROJECT_INIT
+LABEL 初始化项目(&I)
+TOOLBAR_LABEL 初始化项目
+RIBBON_LABEL 初始化项目
+MESSAGE 创建前排/后排特征组（含子组）以及用户表达式 厚度=5。已存在的组与表达式会复用，不会重复创建。
+SYNONYMS initialize project, feature group, expression, 初始化, 特征组, 厚度
+BITMAP find
+ACTIONS NxProjectInit.dll
+
+BUTTON NXWEBUI_CMD_SEARCH
+LABEL 命令搜索(&S)...
+TOOLBAR_LABEL 命令搜索
+RIBBON_LABEL 命令搜索
+MESSAGE 搜索并启动 NX 中的全部命令，支持按分类过滤。快捷键 Alt+Q。
+SYNONYMS command finder, command search, palette, 命令查找, 命令搜索
+BITMAP find
+ACCELERATOR Alt+Q
+ACTIONS NxCommandSearch.dll
+
+BUTTON NXWEBUI_RADIAL
+LABEL 环形命令(&R)
+TOOLBAR_LABEL 环形命令
+RIBBON_LABEL 环形命令
+MESSAGE 按住空格弹出环形命令菜单，鼠标滑到图标上后松开即可执行。槽位在「环形命令槽位」里指定。输入框里的空格不会弹出菜单。当前已有命令时松开不会抢占。
+SYNONYMS radial menu, pie menu, marking menu, 环形菜单, 圆盘菜单, 快捷菜单
+BITMAP circle_select_gesture
+ACTIONS NxRadialMenu.dll
+
+BUTTON NXWEBUI_RADIAL_SLOTS
+LABEL 环形命令槽位(&M)...
+TOOLBAR_LABEL 槽位
+RIBBON_LABEL 槽位
+MESSAGE 搜索并指定空格环形菜单上的 8 个命令，用法与命令搜索相同。
+SYNONYMS radial slots, pie menu customize, 环形槽位, 圆盘命令
+BITMAP edit_text
+ACTIONS NxRadialSlots.dll

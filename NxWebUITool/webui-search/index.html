@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NX 命令搜索</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="overlay">
+
+<main class="palette" id="palette">
+
+  <div class="search-shell" id="shell">
+    <svg class="search-glyph" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/>
+      <path d="M15.8 15.8L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <input id="search" type="text" autocomplete="off" spellcheck="false" aria-label="搜索 NX 命令">
+    <span class="ghost" id="ghost" aria-hidden="true"></span>
+    <div class="cat-dd" id="catDd" hidden>
+      <button type="button" class="cat-dd-btn" id="catBtn" aria-haspopup="listbox" aria-expanded="false">
+        <span class="cat-dd-label" id="catBtnLabel">全部分类</span>
+        <svg class="cat-dd-caret" viewBox="0 0 12 8" aria-hidden="true">
+          <path d="M1 1.4l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <kbd class="esc-hint" id="escHint">Esc</kbd>
+    <span class="ring" id="ring" aria-hidden="true"></span>
+  </div>
+
+  <div class="cat-dd-menu" id="catMenu" role="listbox" hidden></div>
+
+  <p class="count" id="count" aria-live="polite"></p>
+
+  <div class="results" id="results" role="listbox" aria-label="命令结果">
+    <div class="sel-pill" id="selPill" aria-hidden="true"></div>
+    <div class="rows" id="rows"></div>
+  </div>
+
+  <div class="idle" id="idle">
+    <p class="idle-line">搜索 <b id="total"></b> 个命令 · 中文 / 英文 / 命令名</p>
+    <div class="recent" id="recent"></div>
+  </div>
+
+  <div class="void" id="void" hidden>
+    <span class="void-dot"></span>
+    <p>没有匹配的命令</p>
+    <p class="void-sub">换个写法试试，比如「拉伸」或「extrude」</p>
+  </div>
+
+</main>
+
+<div class="toast-root" id="toastRoot"></div>
+<div id="cats" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>

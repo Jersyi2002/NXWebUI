@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)..\deploy\application\</OutputPath>
+    <AssemblyName>NxProjectInit</AssemblyName>
+    <RootNamespace>NxWebUITool</RootNamespace>
+    <DebugType>portable</DebugType>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <GenerateRuntimeConfigurationFiles>false</GenerateRuntimeConfigurationFiles>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <NxBase>E:\NX2506</NxBase>
+    <NxManaged>$(NxBase)\NXBIN\managed</NxManaged>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="InitPlugin.cs" />
+    <Compile Include="ProjectInit.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NXOpen">
+      <HintPath>$(NxManaged)\NXOpen.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NXOpen.UF">
+      <HintPath>$(NxManaged)\NXOpen.UF.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NXOpen.Utilities">
+      <HintPath>$(NxManaged)\NXOpen.Utilities.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

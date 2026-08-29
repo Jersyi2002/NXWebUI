@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NX Folio</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="aurora" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="lantern-follow" aria-hidden="true"></div>
+
+<div class="desk">
+
+  <header class="masthead">
+    <div class="mark">
+      <span class="mark-glyph" aria-hidden="true"></span>
+      <span class="mark-word">NX Folio</span>
+    </div>
+    <button class="lantern" id="lantern" type="button" aria-label="切换夜色">
+      <span class="lantern-core"></span>
+    </button>
+  </header>
+
+  <section class="hero" id="hero">
+    <p class="kicker" id="kicker"></p>
+    <h1 class="display" id="display">今晚，从一笔开始。</h1>
+    <p class="lede" id="lede"></p>
+    <div class="intents" id="intents">
+      <button class="intent" type="button" data-intent="session">此刻的会话</button>
+      <button class="intent" type="button" data-intent="sculpt">塑造一个方块</button>
+      <button class="intent" type="button" data-intent="gaze">看看选了什么</button>
+      <button class="intent" type="button" data-intent="night">换成夜色</button>
+    </div>
+  </section>
+
+  <section class="workspace" id="workspace" hidden>
+    <div class="colloquy" id="colloquy"></div>
+    <aside class="folio" id="folio"></aside>
+  </section>
+
+  <form class="dock" id="dock" autocomplete="off">
+    <div class="dock-shell">
+      <textarea id="quill" rows="1" placeholder="给 NX 写一句话…"></textarea>
+      <button class="send" type="submit" aria-label="发送">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 19V5M12 5l-6 6M12 5l6 6" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <p class="dock-hint">回车发送 · Shift + 回车换行</p>
+  </form>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-store">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>环形命令槽位</title>
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="styles.css?v=11">
+</head>
+<body class="overlay slots-page">
+
+<aside class="wheel-pane">
+  <div class="slot-toolbar">
+    <div class="mode-switch" role="tablist" aria-label="菜单类型">
+      <button type="button" class="mode-btn on" id="customMode" role="tab" aria-selected="true">空格环形</button>
+      <button type="button" class="mode-btn" id="nativeMode" role="tab" aria-selected="false">NX 原生 8 槽</button>
+    </div>
+    <div class="style-ctrl" id="styleCtrl">
+      <div class="mode-switch" role="radiogroup" aria-label="空格菜单风格">
+        <button type="button" class="mode-btn on" id="classicStyle" aria-pressed="true">经典</button>
+        <button type="button" class="mode-btn" id="radialzStyle" aria-pressed="false">RadialZ</button>
+      </div>
+    </div>
+    <div class="native-controls" id="nativeControls" hidden>
+      <div class="native-app-picker">
+        <button type="button" class="native-app-btn" id="nativeAppBtn" aria-haspopup="listbox" aria-expanded="false">
+          <span id="nativeAppLabel">建模</span>
+          <svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.4l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="native-app-menu" id="nativeAppMenu" role="listbox" hidden></div>
+      </div>
+      <div class="bar-switch" id="barSwitch" aria-label="Application Radial 编号">
+        <button type="button" class="bar-btn on" data-bar="1">1</button>
+        <button type="button" class="bar-btn" data-bar="2">2</button>
+        <button type="button" class="bar-btn" data-bar="3">3</button>
+      </div>
+      <button type="button" class="native-reset" id="nativeReset">恢复默认</button>
+    </div>
+  </div>
+  <div class="wheel-scale">
+    <div class="wheel" id="wheel">
+      <div class="slots" id="slotList"></div>
+    </div>
+    <div class="hint" id="wheelHint">点槽位再搜索，或把命令拖到槽上</div>
+  </div>
+  <div class="count-ctrl" id="countCtrl">
+    <span class="count-label" id="slotCountLabel">父槽</span>
+    <input type="range" id="slotCount" min="4" max="10" step="1" value="8" aria-labelledby="slotCountLabel">
+    <strong class="count-value" id="slotCountValue">8</strong>
+  </div>
+  <button type="button" class="slot-clear" id="clearSlot">清除主槽</button>
+</aside>
+
+<main class="palette" id="palette">
+  <div class="search-shell" id="shell">
+    <svg class="search-glyph" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/>
+      <path d="M15.8 15.8L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <input id="search" type="text" autocomplete="off" spellcheck="false" aria-label="搜索 NX 命令">
+    <span class="ghost" id="ghost" aria-hidden="true"></span>
+    <div class="cat-dd" id="catDd" hidden>
+      <button type="button" class="cat-dd-btn" id="catBtn" aria-haspopup="listbox" aria-expanded="false">
+        <span class="cat-dd-label" id="catBtnLabel">全部分类</span>
+        <svg class="cat-dd-caret" viewBox="0 0 12 8" aria-hidden="true">
+          <path d="M1 1.4l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <kbd class="esc-hint" id="escHint">Esc</kbd>
+    <span class="ring" id="ring" aria-hidden="true"></span>
+  </div>
+
+  <div class="cat-dd-menu" id="catMenu" role="listbox" hidden></div>
+  <p class="count" id="count" aria-live="polite"></p>
+
+  <div class="results" id="results" role="listbox" aria-label="命令结果">
+    <div class="sel-pill" id="selPill" aria-hidden="true"></div>
+    <div class="rows" id="rows"></div>
+  </div>
+
+  <div class="idle" id="idle">
+    <p class="idle-line">点左侧圆盘槽位，再搜索写入 · 也可把命令拖到槽上 · 共 <b id="total"></b> 个命令</p>
+    <div class="recent" id="recent"></div>
+  </div>
+
+  <div class="void" id="void" hidden>
+    <span class="void-dot"></span>
+    <p>没有匹配的命令</p>
+    <p class="void-sub">换个写法试试，比如「拉伸」或「extrude」</p>
+  </div>
+</main>
+
+<div class="toast-root" id="toastRoot"></div>
+<div id="cats" hidden></div>
+<script src="app.js?v=11"></script>
+</body>
+</html>

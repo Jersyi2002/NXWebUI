@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NX WebUI</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="bg-orbs" aria-hidden="true">
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+</div>
+
+<div class="app">
+
+  <header class="app-header anim-in" style="--i:0">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M16 3l10 5.8v11.6L16 26.2 6 20.4V8.8L16 3z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+          <circle cx="16" cy="14.8" r="3.4" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>NX WebUI</h1>
+        <p>Siemens NX 二次开发面板</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span class="status-pill" id="statusPill" data-state="pending">
+        <span class="dot"></span><span id="statusText">连接中…</span>
+      </span>
+      <button class="icon-btn" id="themeBtn" title="切换明暗主题" aria-label="切换主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.4 14.2A8.5 8.5 0 1 1 9.8 3.6a7 7 0 1 0 10.6 10.6z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="card anim-in" style="--i:1" id="sessionCard">
+      <div class="card-head">
+        <div>
+          <h2>会话信息</h2>
+          <p class="card-sub">当前 NX 会话与部件状态</p>
+        </div>
+        <button class="btn btn-primary" id="refreshBtn">
+          <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 1 1-2.64-6.36"/>
+            <path d="M21 3v6h-6"/>
+          </svg>
+          <span>刷新</span>
+        </button>
+      </div>
+
+      <div class="info-list" id="infoList">
+        <div class="info-row" style="--i:0">
+          <span class="info-label">NX 版本</span>
+          <span class="info-value" data-field="version">—</span>
+        </div>
+        <div class="info-row" style="--i:1">
+          <span class="info-label">工作部件</span>
+          <span class="info-value" data-field="workPart">—</span>
+        </div>
+        <div class="info-row" style="--i:2">
+          <span class="info-label">显示部件</span>
+          <span class="info-value" data-field="displayPart">—</span>
+        </div>
+        <div class="info-row" style="--i:3">
+          <span class="info-label">单位</span>
+          <span class="info-value" data-field="units">—</span>
+        </div>
+        <div class="info-row" style="--i:4">
+          <span class="info-label">实体数量</span>
+          <span class="info-value" data-field="bodyCount">—</span>
+        </div>
+      </div>
+
+      <div class="card-foot">
+        <span id="lastUpdated">尚未刷新</span>
+        <span class="hint"><kbd>R</kbd> 快捷刷新</span>
+      </div>
+    </section>
+
+    <section class="card anim-in" style="--i:2">
+      <div class="card-head">
+        <div>
+          <h2>快捷操作</h2>
+          <p class="card-sub">下一阶段接入 NX Open 写操作</p>
+        </div>
+      </div>
+      <div class="action-grid">
+        <button class="action-card" data-action="createBlock">
+          <div class="action-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+              <path d="M12 2.5l8 4.6v9.2l-8 4.6-8-4.6V7.1l8-4.6z"/>
+              <path d="M4 7.1l8 4.6 8-4.6M12 11.7v9.2"/>
+            </svg>
+          </div>
+          <div class="action-text">
+            <strong>创建长方体</strong>
+            <span>参数化 Block 特征</span>
+          </div>
+          <span class="badge">即将接入</span>
+        </button>
+        <button class="action-card" data-action="readSelection">
+          <div class="action-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4l7.2 16.5 2.3-6.8 6.8-2.3L4 4z"/>
+            </svg>
+          </div>
+          <div class="action-text">
+            <strong>读取选择</strong>
+            <span>列出当前选中对象</span>
+          </div>
+          <span class="badge">即将接入</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="card anim-in" style="--i:3">
+      <div class="card-head">
+        <div>
+          <h2>消息日志</h2>
+          <p class="card-sub">桥接调用与事件记录</p>
+        </div>
+        <button class="btn btn-ghost" id="clearLogBtn">清空</button>
+      </div>
+      <div class="log" id="log" aria-live="polite"></div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer anim-in" style="--i:4">
+    NX Open × WebView2 · 混合架构原型 v0.1
+  </footer>
+
+</div>
+
+<div class="toast-root" id="toastRoot"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

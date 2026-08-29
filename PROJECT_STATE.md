@@ -1,6 +1,6 @@
 # PROJECT_STATE
 
-独立产品：NX WebUI 部署器。仓库根 `F:\NxWebUIDeployer`。不依赖 Agent Manager。
+独立产品：NX WebUI 部署器 + 插件源码。仓库根 `F:\NxWebUIDeployer`，GitHub `Jersyi2002/NXWebUI`。不依赖 Agent Manager。插件本体在 `NxWebUITool\`。
 
 ## 目标
 
@@ -18,5 +18,7 @@
 ## 注意
 
 - 改完插件 DLL/webui 后须完全退出 NX，再在本部署器点「修复 / 更新」。
+- 构建顺序：先 `NxWebUITool\NxWebUITool.slnx`（产出 `NxWebUITool\deploy`，不入库），再编部署器同步到 `dist\payload`。
+- README 截图在 `.github/assets/`。
 - 不要同步到 `F:\NxWebUITool`。
 - Agent Manager 的 `/workbench/plugins` 仍可部署同一目录；两套工具互不引用代码。

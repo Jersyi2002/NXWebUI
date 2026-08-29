@@ -1,0 +1,10 @@
+NxCommandSearch/**/obj/
+NxCommandSearch/**/bin/
+*.user
+*.suo
+deploy/application/*.dll
+deploy/application/*.pdb
+deploy/application/*.config
+deploy/application/webui/
+deploy/application/profiles/
+deploy/startup/

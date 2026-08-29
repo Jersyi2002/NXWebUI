@@ -64,7 +64,7 @@ namespace NxWebUIDeployer
             _web.CoreWebView2.WebMessageReceived += OnMessage;
             _web.CoreWebView2.NavigationCompleted += (_, __) =>
                 System.Threading.Tasks.Task.Run(PushStatus);
-            _web.CoreWebView2.Navigate("https://nxwebui-deployer.local/index.html?v=3");
+            _web.CoreWebView2.Navigate("https://nxwebui-deployer.local/index.html?v=4");
             _ready = true;
         }
 

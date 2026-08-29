@@ -1,0 +1,121 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)..\deploy\application\</OutputPath>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <GenerateRuntimeConfigurationFiles>false</GenerateRuntimeConfigurationFiles>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <AssemblyName>NxCommandSearch.UI</AssemblyName>
+    <RootNamespace>NxWebUITool</RootNamespace>
+    <DebugType>portable</DebugType>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <NxBase>E:\NX2506</NxBase>
+    <NxManaged>$(NxBase)\NXBIN\managed</NxManaged>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Plugin.cs" />
+    <Compile Remove="RadialPlugin.cs" />
+    <Compile Remove="SlotsPlugin.cs" />
+    <Compile Remove="InitPlugin.cs" />
+    <Compile Remove="ProjectInit.cs" />
+    <Compile Remove="EntryLoader.cs" />
+    <Compile Remove="RadialStartupPlugin.cs" />
+    <Compile Remove="NxRadialStartup\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NXOpen">
+      <HintPath>$(NxManaged)\NXOpen.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NXOpen.UF">
+      <HintPath>$(NxManaged)\NXOpen.UF.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NXOpen.Utilities">
+      <HintPath>$(NxManaged)\NXOpen.Utilities.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NXOpenUI">
+      <HintPath>$(NxManaged)\NXOpenUI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <Target Name="CopyPluginAssets" AfterTargets="Build">
+    <MakeDir Directories="$(MSBuildThisFileDirectory)..\deploy\startup;
+                          $(MSBuildThisFileDirectory)..\deploy\application\webui;
+                          $(MSBuildThisFileDirectory)..\deploy\application\webui\radial;
+                          $(MSBuildThisFileDirectory)..\deploy\application\webui\slots;
+                          $(MSBuildThisFileDirectory)..\deploy\application\profiles\All" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\webui-search\index.html;
+                       $(MSBuildThisFileDirectory)..\webui-search\styles.css;
+                       $(MSBuildThisFileDirectory)..\webui-search\app.js"
+          DestinationFolder="$(MSBuildThisFileDirectory)..\deploy\application\webui"
+          SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\webui-radial\index.html;
+                       $(MSBuildThisFileDirectory)..\webui-radial\styles.css;
+                       $(MSBuildThisFileDirectory)..\webui-radial\app.js"
+          DestinationFolder="$(MSBuildThisFileDirectory)..\deploy\application\webui\radial"
+          SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\webui-slots\index.html;
+                       $(MSBuildThisFileDirectory)..\webui-slots\styles.css;
+                       $(MSBuildThisFileDirectory)..\webui-slots\app.js"
+          DestinationFolder="$(MSBuildThisFileDirectory)..\deploy\application\webui\slots"
+          SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\plugin\startup\NxWebUI.men;
+                       $(MSBuildThisFileDirectory)..\plugin\startup\NxWebUI.btn"
+          DestinationFolder="$(MSBuildThisFileDirectory)..\deploy\startup"
+          SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\plugin\application\profiles\All\NxWebUI.rtb"
+          DestinationFolder="$(MSBuildThisFileDirectory)..\deploy\application\profiles\All"
+          SkipUnchangedFiles="true" />
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)write-gbk.ps1&quot;" />
+    <Copy SourceFiles="$(OutputPath)runtimes\win-x64\native\WebView2Loader.dll"
+          DestinationFolder="$(OutputPath)"
+          Condition="Exists('$(OutputPath)runtimes\win-x64\native\WebView2Loader.dll')" />
+    <ItemGroup>
+      <_Wv2Junk Include="$(OutputPath)Microsoft.Web.WebView2.Wpf.dll;
+                          $(OutputPath)Microsoft.Web.WebView2.Wpf.xml;
+                          $(OutputPath)Microsoft.Web.WebView2.Core.xml;
+                          $(OutputPath)Microsoft.Web.WebView2.WinForms.xml" />
+      <_StartupJunk Include="$(MSBuildThisFileDirectory)..\deploy\startup\*.dll;
+                              $(MSBuildThisFileDirectory)..\deploy\startup\*.pdb;
+                              $(MSBuildThisFileDirectory)..\deploy\startup\*.json;
+                              $(MSBuildThisFileDirectory)..\deploy\startup\*.disabled;
+                              $(MSBuildThisFileDirectory)..\deploy\startup\*.config" />
+      <_CoreJunk Include="$(OutputPath)*.runtimeconfig.json;
+                           $(OutputPath)*.deps.json" />
+    </ItemGroup>
+    <Delete Files="@(_Wv2Junk)" TreatErrorsAsWarnings="true" />
+    <Delete Files="@(_StartupJunk)" TreatErrorsAsWarnings="true" />
+    <Delete Files="@(_CoreJunk)" TreatErrorsAsWarnings="true" />
+    <RemoveDir Directories="$(OutputPath)runtimes" />
+  </Target>
+
+  <Target Name="BuildEntryDlls" AfterTargets="CopyPluginAssets">
+    <MSBuild Projects="$(MSBuildThisFileDirectory)NxRadialStartup\NxRadialStartup.csproj"
+             Targets="Restore"
+             Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(MSBuildThisFileDirectory)NxCommandSearch.csproj;$(MSBuildThisFileDirectory)NxRadialMenu.csproj;$(MSBuildThisFileDirectory)NxRadialSlots.csproj;$(MSBuildThisFileDirectory)NxProjectInit.csproj;$(MSBuildThisFileDirectory)NxRadialStartup\NxRadialStartup.csproj"
+             Properties="Configuration=$(Configuration)" />
+  </Target>
+
+</Project>

@@ -178,7 +178,22 @@ themeBtn.addEventListener("click", () => {
 });
 
 if (Bridge.hosted) void refresh();
-else {
-  $("errorBanner").textContent = "WebView 桥未就绪";
-  setHidden($("errorBanner"), false);
+else applyPreview();
+
+function applyPreview() {
+  applyStatus({
+    status: {
+      state: "not-installed",
+      nxRunning: false,
+      installDir: "%LOCALAPPDATA%\\NxWebUITool\\deploy",
+      sourceDir: "NxWebUITool\\deploy",
+      envCustomDirsFile: "未设置",
+      filesPresent: false,
+      missingFiles: ["NxCommandSearch.dll"],
+      preferredNx: { release: "NX 2506", version: "2506.4000", baseDir: "E:\\NX2506" },
+      nxInstallations: [],
+      customDirectories: ["D:\\QuickCAM", "F:\\NXPL001"],
+      warning: "",
+    },
+  });
 }

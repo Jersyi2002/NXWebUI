@@ -8,8 +8,8 @@ Quit NX, run the deployer, restart NX. Command search, the spacebar radial menu,
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/header/gradient.svg?title=NX+WebUI&subtitle=Siemens+NX+2506+plugin+deployer&theme=orange&mode=dark&align=center&font=space-grotesk" />
-    <img alt="NX WebUI" src="https://shieldcn.dev/header/gradient.svg?title=NX+WebUI&subtitle=Siemens+NX+2506+plugin+deployer&theme=orange&mode=light&align=center&font=space-grotesk" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/header/gradient.svg?title=NX+WebUI&subtitle=Siemens+NX+2506+plugin+%2B+deployer&theme=orange&mode=dark&align=center&font=space-grotesk" />
+    <img alt="NX WebUI" src="https://shieldcn.dev/header/gradient.svg?title=NX+WebUI&subtitle=Siemens+NX+2506+plugin+%2B+deployer&theme=orange&mode=light&align=center&font=space-grotesk" />
   </picture>
 </p>
 
@@ -21,15 +21,38 @@ Quit NX, run the deployer, restart NX. Command search, the spacebar radial menu,
 
 </div>
 
+## Demo
+
+Deployer, Alt+Q search, spacebar radial menu, and the slot editor.
+
+<p align="center">
+  <img src=".github/assets/deployer.png" alt="NX WebUI deployer" width="720" />
+</p>
+
+<p align="center">
+  <img src=".github/assets/search.png" alt="NX command search for Extrude" width="640" />
+</p>
+
+<p align="center">
+  <img src=".github/assets/radial.png" alt="Spacebar radial command menu" width="480" />
+</p>
+
+<p align="center">
+  <img src=".github/assets/slots.png" alt="Radial slot editor" width="720" />
+</p>
+
 ## Install
+
+Plugin C# and webui live in `NxWebUITool`. Compile them against NX 2506, then build the deployer so it can copy `NxWebUITool\deploy` into `dist\payload`.
 
 ```powershell
 git clone https://github.com/Jersyi2002/NXWebUI.git
 cd NXWebUI
+dotnet build NxWebUITool\NxWebUITool.slnx -c Release
 dotnet build NxWebUIDeployer.slnx -c Release
 ```
 
-Windows x64, .NET SDK, and [WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/). Set `NXWEBUI_PAYLOAD` to an `NxWebUITool\deploy` folder when `dist\payload` is empty.
+Windows x64, .NET SDK, [WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/), and NX 2506 managed DLLs. Default `NxBase` is `E:\NX2506`. Override with `-p:NxBase=D:\path\to\NX2506` if yours lives elsewhere.
 
 ## Quickstart
 
@@ -39,9 +62,9 @@ Fully quit Siemens NX (`ugraf.exe`), then:
 .\dist\NxWebUIDeployer.exe
 ```
 
-Click 安装. The deployer copies the plugin to `%LOCALAPPDATA%\NxWebUITool\deploy`, writes `custom_dirs.dat`, and sets user env `UGII_CUSTOM_DIRECTORY_FILE`. Restart NX 2506 (a full quit, not File then New). Alt+Q search, the spacebar radial menu, and project init are then available.
+Click 安装. The deployer copies the plugin to `%LOCALAPPDATA%\NxWebUITool\deploy`, writes `custom_dirs.dat`, and sets user env `UGII_CUSTOM_DIRECTORY_FILE`. Restart NX 2506 with a full quit, not File then New.
 
-`启动部署器.bat` builds if needed, then starts the same exe.
+`启动部署器.bat` builds the plugin and the exe if they are missing, then starts the same program.
 
 ## What you can do
 
@@ -50,17 +73,19 @@ Click 安装. The deployer copies the plugin to `%LOCALAPPDATA%\NxWebUITool\depl
 - **Refuse a live session:** blocks install and uninstall while `ugraf.exe` is running so DLLs are not overwritten.
 - **Uninstall cleanly:** removes the LocalAppData copy and restores the previous environment variable.
 
+## Keyboard shortcuts
+
+| Key | Action |
+| --- | --- |
+| `Alt+Q` | Command search |
+| Hold `Space` | Radial menu, release to run |
+
 ## Requirements
 
 - **Windows x64:** the UI is WinForms plus WebView2, not a web server.
-- **Siemens NX 2506:** plugin binaries and menus target that release.
-- **Plugin payload:** `dist\payload` beside the exe, or `NXWEBUI_PAYLOAD` pointing at a folder that already contains `startup\` and `application\`.
-
-## Notes
-
+- **Siemens NX 2506:** plugin binaries, menus, and NXOpen references target that release.
+- **Plugin payload:** after the two `dotnet build` commands, `dist\payload` sits beside the exe. You can also set `NXWEBUI_PAYLOAD` to any folder that already contains `startup\` and `application\`.
 - After any plugin DLL or webui change, fully quit NX, then click 修复 / 更新.
-- Official `UGII\menus\custom_dirs.dat` is patched when writable. User-env registration still works if that file is locked.
-- Discovery matches Agent Manager: `UGII_BASE_DIR`, `reg.exe` `UGII_BASE_DIR` values, then `NXBIN\ugraf.exe`.
 
 ## License
 

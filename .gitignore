@@ -6,6 +6,10 @@ payload/
 *.user
 *.suo
 .vs/
+.cursor/
 *.pdb
+*.dll
 *.exe
+NxWebUITool/deploy/
+NxWebUITool/.cursor/
 !webui/**

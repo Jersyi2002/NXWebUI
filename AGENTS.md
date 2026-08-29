@@ -8,7 +8,7 @@
 
 正确性 > 验证。最小必要修改。不要把部署器编回 AgentManager。
 
-载荷来源（按顺序）：`NXWEBUI_PAYLOAD` 环境变量 → 可执行文件旁 `payload\` → 构建时若存在则从 `..\AgentManager\NxWebUITool\deploy` 同步（仅构建机，非运行时依赖）。
+载荷来源（按顺序）：`NXWEBUI_PAYLOAD` 环境变量 → 可执行文件旁 `payload\` → 构建时若存在则从本仓库 `NxWebUITool\deploy` 同步（先编插件再编部署器）。插件源码在 `NxWebUITool\`，不引用 Agent Manager。
 
 ## 命令
 

@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/github/license/Jersyi2002/NXWebUI)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/Jersyi2002/NXWebUI)](https://github.com/Jersyi2002/NXWebUI/stargazers)
 [![NX](https://img.shields.io/badge/NX-2506-blue)](https://www.plm.automation.siemens.com/)
+[![Vibe Coding](https://img.shields.io/badge/vibe%20coding-full-informational)](#notes)
 
 One-click install for the Siemens NX 2506 WebUI plugin.
 
@@ -75,6 +76,8 @@ Click 安装. The deployer copies the plugin to `%LOCALAPPDATA%\NxWebUITool\depl
 - After any plugin DLL or webui change, fully quit NX, then click 修复 / 更新.
 
 ## Notes
+
+This repository is **full vibe coding**. The NX plugin, deployer, and webui were written with AI coding agents from prompts, then compiled and tested on NX 2506.
 
 The spacebar menu has two looks: **classic** and **RadialZ**. The RadialZ style (dark disc, coral accent, nested child slots) is inspired by [RadialZ](https://www.radialz.app/), a radial brush menu for ZBrush. NX WebUI is an independent NX plugin and is not affiliated with RadialZ.
 
